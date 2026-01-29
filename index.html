@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gocta Radio - En Vivo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --turquesa: #00474B; --naranja: #E67E22; --onda: rgba(255,255,255,0.2); }
+        body { background-color: var(--turquesa); color: white; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
+        .header { text-align: center; z-index: 10; margin-bottom: 10px; }
+        .title { font-size: 38px; font-weight: 900; }
+        .title span { color: var(--naranja); }
+        .player-zone { position: relative; width: 350px; height: 350px; display: flex; align-items: center; justify-content: center; }
+        .play-btn { position: relative; width: 140px; height: 140px; background: var(--naranja); border: none; border-radius: 50%; z-index: 10; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .play-btn i { font-size: 55px; margin-left: 8px; color: white; }
+        .ripple { position: absolute; border: 2px solid var(--onda); border-radius: 50%; animation: pulse 3s infinite linear; opacity: 0; }
+        @keyframes pulse { 0% { width: 140px; height: 140px; opacity: 1; } 100% { width: 450px; height: 450px; opacity: 0; } }
+        .ripple:nth-child(2) { animation-delay: 1s; }
+        .ripple:nth-child(3) { animation-delay: 2s; }
+        .marquee { position: fixed; bottom: 0; width: 100%; background: #000; color: var(--naranja); padding: 15px 0; font-weight: bold; border-top: 2px solid var(--naranja); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">GOCTA <span>RADIO</span></div>
+        <div style="color:#80CBC4">El Sonido Que Nos Une</div>
+    </div>
+    <div class="player-zone">
+        <div id="waves" style="display:none;">
+            <div class="ripple"></div><div class="ripple"></div><div class="ripple"></div>
+        </div>
+        <button class="play-btn" onclick="toggle()">
+            <i id="btn-icon" class="fa-solid fa-play"></i>
+        </button>
+    </div>
+    <audio id="stream" src="http://uk19freenew.listen2myradio.com:33027/stream"></audio>
+    <div class="marquee"><marquee>🎶 EN VIVO: GOCTA RADIO ... SEÑAL DESDE CHACHAPOYAS PARA EL MUNDO 🎶</marquee></div>
+    <script>
+        const a = document.getElementById('stream'), i = document.getElementById('btn-icon'), w = document.getElementById('waves');
+        function toggle() {
+            if(a.paused) { a.load(); a.play(); i.className="fa-solid fa-pause"; w.style.display="block"; }
+            else { a.pause(); i.className="fa-solid fa-play"; w.style.display="none"; }
+        }
+    </script>
+</body>
+</html>
